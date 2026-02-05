@@ -1,0 +1,293 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استشارة ذكية - عيادات الحفاظ</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { cairo: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            primary: '#800020',
+                            secondary: '#1e293b',
+                            accent: '#fdf2f2',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #f1f5f9; }
+        .option-card {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            border: 2px solid #e2e8f0;
+        }
+        .option-card:hover {
+            border-color: #800020;
+            background-color: #fef2f2;
+            transform: translateY(-2px);
+        }
+        .step { display: none; }
+        .step.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .logo-container {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- اللوجو ثابت في كل الصفحات -->
+    <div class="text-center mb-6 w-full">
+        <div class="logo-container mb-4">
+            <img src="https://i.postimg.cc/Ty5nTNFd/logo-placeholder.jpg" 
+                 onerror="this.src='https://placehold.co/180x60/ffffff/800020?text=AL+HIFAZ+CLINICS'"
+                 alt="شعار عيادات الحفاظ" 
+                 class="h-16 md:h-20 object-contain mx-auto">
+        </div>
+        <h1 class="text-2xl font-black text-brand-secondary">عيادات <span class="text-brand-primary">الحفاظ</span> لطب الأسنان</h1>
+        <p class="text-gray-500 text-sm mt-1">تشخيص دقيق لابتسامة مثالية</p>
+    </div>
+
+    <!-- Container المجمع للاختبار -->
+    <div class="max-w-md w-full bg-white rounded-[2rem] shadow-2xl overflow-hidden border-t-8 border-brand-primary relative">
+        
+        <div class="p-6 md:p-8">
+
+            <!-- الخطوة 1: التخصص الرئيسي -->
+            <div id="step-1" class="step active">
+                <h3 class="text-lg font-bold text-brand-secondary mb-6 text-center">ما هو هدف زيارتك اليوم؟</h3>
+                <div class="grid grid-cols-1 gap-3">
+                    <div class="option-card p-4 rounded-xl flex items-center gap-4" onclick="handleMainChoice('زراعة أسنان', 'implant')">
+                        <i class="fa-solid fa-tooth text-brand-primary text-xl"></i>
+                        <span class="font-bold">زراعة وتعويض أسنان</span>
+                    </div>
+                    <div class="option-card p-4 rounded-xl flex items-center gap-4" onclick="handleMainChoice('تقويم أسنان', 'ortho')">
+                        <i class="fa-solid fa-grip-lines-vertical text-brand-primary text-xl"></i>
+                        <span class="font-bold">تقويم أسنان</span>
+                    </div>
+                    <div class="option-card p-4 rounded-xl flex items-center gap-4" onclick="handleMainChoice('تجميل وابتسامة', 'cosmetic')">
+                        <i class="fa-solid fa-wand-magic-sparkles text-brand-primary text-xl"></i>
+                        <span class="font-bold">تجميل وابتسامة هوليود</span>
+                    </div>
+                    <div class="option-card p-4 rounded-xl flex items-center gap-4" onclick="handleMainChoice('قسم الأطفال', 'kids')">
+                        <i class="fa-solid fa-child text-brand-primary text-xl"></i>
+                        <span class="font-bold">علاج أسنان الأطفال</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الخطوة 2: سؤال فرعي -->
+            <div id="step-2" class="step">
+                <h3 id="sub-question-title" class="text-lg font-bold text-brand-secondary mb-6 text-center">تفاصيل إضافية</h3>
+                <div id="sub-options-container" class="grid grid-cols-1 gap-3"></div>
+            </div>
+
+            <!-- الخطوة 3: التوقيت أو الحالة (الإضافة الجديدة) -->
+            <div id="step-3" class="step">
+                <h3 id="status-question-title" class="text-lg font-bold text-brand-secondary mb-6 text-center">منذ متى تعاني من هذه الحالة؟</h3>
+                <div class="grid grid-cols-1 gap-3">
+                    <div class="option-card p-4 rounded-xl flex items-center gap-4" onclick="selectStatus('مشكلة جديدة (أيام)')">
+                        <i class="fa-solid fa-clock text-blue-400"></i>
+                        <span class="font-bold">منذ أيام بسيطة</span>
+                    </div>
+                    <div class="option-card p-4 rounded-xl flex items-center gap-4" onclick="selectStatus('مشكلة قديمة (شهور)')">
+                        <i class="fa-solid fa-calendar-alt text-amber-400"></i>
+                        <span class="font-bold">منذ عدة أشهر</span>
+                    </div>
+                    <div class="option-card p-4 rounded-xl flex items-center gap-4" onclick="selectStatus('رغبة في التجميل/التطوير')">
+                        <i class="fa-solid fa-star text-yellow-400"></i>
+                        <span class="font-bold">مجرد رغبة في التحسين</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الخطوة 4: التاريخ الصحي -->
+            <div id="step-4" class="step">
+                <h3 class="text-lg font-bold text-brand-secondary mb-6 text-center">معلومات صحية تهم الطبيب</h3>
+                <div class="space-y-3">
+                    <div class="option-card p-4 rounded-xl flex items-center gap-4" onclick="selectHealth('صحة ممتازة')">
+                        <i class="fa-solid fa-heart-pulse text-green-500 text-xl"></i>
+                        <span class="font-bold">الصحة ممتازة</span>
+                    </div>
+                    <div class="option-card p-4 rounded-xl flex items-center gap-4" onclick="selectHealth('سكري / ضغط')">
+                        <i class="fa-solid fa-hospital-user text-red-500 text-xl"></i>
+                        <span class="font-bold">أعاني من سكري أو ضغط</span>
+                    </div>
+                    <div id="smoking-option" class="option-card p-4 rounded-xl flex items-center gap-4" onclick="selectHealth('مدخن')">
+                        <i class="fa-solid fa-smoking text-gray-400 text-xl"></i>
+                        <span class="font-bold">أنا مدخن (سيجارة/أرجيلة)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الخطوة النهائية -->
+            <div id="step-final" class="step text-center">
+                <div class="w-20 h-20 bg-green-50 text-[#25D366] rounded-full flex items-center justify-center mx-auto mb-6 text-4xl shadow-sm">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-brand-secondary">التقرير جاهز للإرسال</h3>
+                <div id="summary-box" class="bg-gray-50 p-4 rounded-2xl text-right text-sm mb-6 border border-gray-100"></div>
+                <button onclick="sendWhatsApp()" class="w-full bg-[#25D366] text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-3 text-lg hover:bg-green-600 transition">
+                    إرسال للعيادة الآن <i class="fa-solid fa-paper-plane"></i>
+                </button>
+                <button onclick="location.reload()" class="mt-4 text-gray-400 text-xs hover:underline underline-offset-4">بدء استشارة جديدة</button>
+            </div>
+
+        </div>
+
+        <!-- Navigation Footer -->
+        <div id="nav-footer" class="hidden px-6 py-4 bg-gray-50 flex justify-between items-center border-t border-gray-100">
+            <button onclick="goBack()" class="text-gray-400 text-sm font-bold flex items-center gap-1 hover:text-brand-primary transition">
+                <i class="fa-solid fa-chevron-right text-[10px]"></i> السابق
+            </button>
+            <span id="step-count" class="text-[10px] font-bold text-gray-300"></span>
+        </div>
+    </div>
+
+    <script>
+        let currentState = {
+            mainChoice: '',
+            subChoice: '',
+            duration: '',
+            health: '',
+            isKid: false
+        };
+
+        let historySteps = [1];
+        const CLINIC_PHONE = "96264202779";
+        const TOTAL_STEPS = 4;
+
+        const subQuestions = {
+            implant: {
+                title: "كم عدد الأسنان المفقودة؟",
+                options: ["سن واحد فقط", "عدة أسنان", "فك كامل"]
+            },
+            ortho: {
+                title: "ما نوع التقويم الذي تفضله؟",
+                options: ["تقويم معدني تقليدي", "تقويم شفاف (Invisalign)", "استشارة أولية للتقويم"]
+            },
+            cosmetic: {
+                title: "ما الذي ترغب في تحسينه؟",
+                options: ["تغيير لون الأسنان (تبييض)", "تعديل شكل الأسنان (فينير)", "ابتسامة هوليود كاملة"]
+            },
+            kids: {
+                title: "ما هو عمر الطفل؟",
+                options: ["أقل من 6 سنوات", "من 6 إلى 12 سنة", "أكبر من 12 سنة"]
+            }
+        };
+
+        function handleMainChoice(text, key) {
+            currentState.mainChoice = text;
+            currentState.isKid = (key === 'kids');
+            
+            const sub = subQuestions[key];
+            document.getElementById('sub-question-title').innerText = sub.title;
+            const container = document.getElementById('sub-options-container');
+            container.innerHTML = '';
+            
+            sub.options.forEach(opt => {
+                const div = document.createElement('div');
+                div.className = 'option-card p-4 rounded-xl flex items-center gap-4';
+                div.innerHTML = `<i class="fa-solid fa-circle-dot text-brand-primary/30"></i><span class="font-bold">${opt}</span>`;
+                div.onclick = () => {
+                    currentState.subChoice = opt;
+                    nextStep(3);
+                };
+                container.appendChild(div);
+            });
+
+            nextStep(2);
+        }
+
+        function selectStatus(val) {
+            currentState.duration = val;
+            if(currentState.isKid) {
+                currentState.health = "مريض طفل";
+                nextStep(5); // تخطي للصحة
+            } else {
+                nextStep(4);
+            }
+        }
+
+        function selectHealth(val) {
+            currentState.health = val;
+            nextStep(5);
+        }
+
+        function nextStep(s) {
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            const target = (s === 5) ? 'step-final' : 'step-' + s;
+            document.getElementById(target).classList.add('active');
+            
+            if(s > 1 && s < 5) {
+                document.getElementById('nav-footer').classList.remove('hidden');
+                document.getElementById('step-count').innerText = `خطوة ${s} من ${TOTAL_STEPS}`;
+            } else {
+                document.getElementById('nav-footer').classList.add('hidden');
+            }
+
+            if(s === 5) showSummary();
+            historySteps.push(s);
+        }
+
+        function goBack() {
+            if(historySteps.length > 1) {
+                historySteps.pop();
+                const prev = historySteps[historySteps.length - 1];
+                document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+                const target = (prev === 5) ? 'step-final' : 'step-' + prev;
+                document.getElementById(target).classList.add('active');
+                
+                if(prev === 1) {
+                    document.getElementById('nav-footer').classList.add('hidden');
+                } else {
+                    document.getElementById('step-count').innerText = `خطوة ${prev} من ${TOTAL_STEPS}`;
+                }
+            }
+        }
+
+        function showSummary() {
+            const box = document.getElementById('summary-box');
+            let html = `<p class="mb-2 text-brand-primary font-bold border-b border-gray-100 pb-1">ملخص الاستشارة:</p>`;
+            html += `<div class="space-y-1">`;
+            html += `<p>• <b>القسم:</b> ${currentState.mainChoice}</p>`;
+            html += `<p>• <b>التفاصيل:</b> ${currentState.subChoice}</p>`;
+            html += `<p>• <b>المدة:</b> ${currentState.duration}</p>`;
+            if(!currentState.isKid) html += `<p>• <b>الصحة:</b> ${currentState.health}</p>`;
+            html += `</div>`;
+            box.innerHTML = html;
+        }
+
+        function sendWhatsApp() {
+            let msg = `*طلب استشارة - عيادات الحفاظ*%0a%0a`;
+            msg += `🦷 *القسم:* ${currentState.mainChoice}%0a`;
+            msg += `📝 *التفاصيل:* ${currentState.subChoice}%0a`;
+            msg += `⏳ *المدة:* ${currentState.duration}%0a`;
+            msg += `🩺 *الحالة الصحية:* ${currentState.health}%0a%0a`;
+            msg += `يرجى التواصل معي من خلال هذا الرقم.`;
+            
+            window.open(`https://wa.me/${CLINIC_PHONE}?text=${msg}`, '_blank');
+        }
+    </script>
+</body>
+</html>
+
