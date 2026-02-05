@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ابدأ استشارتك الذكية الآن - عيادات الحفاظ</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,39 +29,44 @@
     </script>
 
     <style>
-        body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; }
+        body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; overflow-x: hidden; }
+        
+        /* تصغير حجم البطاقات لتقليل السكرول */
         .option-card {
             transition: all 0.2s ease-in-out;
             cursor: pointer;
-            border: 2px solid #e2e8f0;
+            border: 1.5px solid #e2e8f0;
             background: white;
+            padding: 0.75rem !important; /* تقليل الحشو الداخلي */
         }
+        
         .option-card:hover {
             border-color: #800020;
             background-color: #fef2f2;
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
+
         .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.4s ease-out; }
+        .step.active { display: block; animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
         .logo-container {
             background-color: white;
-            padding: 0.8rem;
-            border-radius: 1.2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 0.5rem; /* تقليل الحشو */
+            border-radius: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             display: inline-block;
         }
 
         .welcome-badge {
             background: #800020;
             color: white;
-            padding: 5px 15px;
+            padding: 3px 12px;
             border-radius: 50px;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 700;
             display: inline-block;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
         textarea:focus {
@@ -69,88 +74,94 @@
             border-color: #800020;
             box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.1);
         }
+
+        /* تحسين مظهر الأيقونات الصغيرة */
+        .icon-box {
+            width: 2.5rem !important;
+            height: 2.5rem !important;
+            flex-shrink: 0;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center pt-4 md:pt-8 px-4 pb-10">
+<body class="min-h-screen flex flex-col items-center pt-2 md:pt-6 px-4 pb-6">
 
     <!-- Header Section -->
-    <div class="text-center mb-6 w-full max-w-lg">
-        <div class="logo-container mb-4">
+    <div class="text-center mb-4 w-full max-w-lg">
+        <div class="logo-container mb-2">
             <img src="https://i.postimg.cc/Ty5nTNFd/logo-placeholder.jpg" 
-                 onerror="this.src='https://placehold.co/200x70/800020/ffffff?text=AL+HIFAZ+CLINICS'"
+                 onerror="this.src='https://placehold.co/150x50/800020/ffffff?text=AL+HIFAZ'"
                  alt="شعار عيادات الحفاظ" 
-                 class="h-14 md:h-16 object-contain mx-auto">
+                 class="h-10 md:h-12 object-contain mx-auto">
         </div>
         
-        <div class="px-4">
-            <div class="welcome-badge">عيادات الحفاظ لطب الأسنان ✨</div>
-            <h1 class="text-2xl md:text-3xl font-black text-brand-secondary leading-tight mb-2">
-                ابدأ استشارتك <span class="text-brand-primary">الذكية</span> الآن
+        <div class="px-2">
+            <div class="welcome-badge">عيادات الحفاظ ✨</div>
+            <h1 class="text-xl md:text-2xl font-black text-brand-secondary leading-tight mb-1">
+                استشارتك <span class="text-brand-primary">الذكية</span>
             </h1>
-            <p class="text-gray-500 text-sm leading-relaxed max-w-xs mx-auto">
-                خطوات بسيطة تفصلك عن الحصول على خطة علاجية مخصصة لحالتك.
+            <p class="text-gray-500 text-[11px] leading-tight max-w-xs mx-auto">
+                خطوات بسيطة للحصول على خطة علاجية مخصصة.
             </p>
         </div>
     </div>
 
     <!-- Quiz Container -->
-    <div class="max-w-md w-full bg-white rounded-[2rem] shadow-xl overflow-hidden border-t-8 border-brand-primary relative">
+    <div class="max-w-md w-full bg-white rounded-[1.5rem] shadow-lg overflow-hidden border-t-4 border-brand-primary relative">
         
-        <div class="p-6 md:p-8">
+        <div class="p-4 md:p-6">
 
             <!-- Step 1: Main Specialization -->
             <div id="step-1" class="step active">
-                <h3 class="text-lg font-black text-brand-secondary mb-6 text-center">بماذا يمكننا مساعدتك اليوم؟</h3>
+                <h3 class="text-md font-bold text-brand-secondary mb-4 text-center">بماذا يمكننا مساعدتك اليوم؟</h3>
                 
-                <div class="grid grid-cols-1 gap-3">
-                    <!-- Zira'a First -->
-                    <div class="option-card p-4 rounded-2xl flex items-center gap-4" onclick="handleMainChoice('زراعة أسنان', 'implant')">
-                        <div class="w-12 h-12 bg-blue-50 text-blue-800 rounded-xl flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-tooth text-xl"></i>
+                <div class="grid grid-cols-1 gap-2">
+                    <div class="option-card rounded-xl flex items-center gap-3" onclick="handleMainChoice('زراعة أسنان', 'implant')">
+                        <div class="icon-box bg-blue-50 text-blue-800 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-tooth text-lg"></i>
                         </div>
-                        <div>
-                            <span class="font-bold block text-base text-blue-800">زراعة وتعويض الأسنان</span>
-                            <span class="text-[10px] text-gray-400">تعويض الأسنان المفقودة بأحدث التقنيات</span>
+                        <div class="overflow-hidden">
+                            <span class="font-bold block text-sm text-blue-800">زراعة وتعويض الأسنان</span>
+                            <span class="text-[9px] text-gray-400 truncate">تعويض الأسنان المفقودة</span>
                         </div>
                     </div>
 
-                    <div class="option-card p-4 rounded-2xl flex items-center gap-4" onclick="handleMainChoice('تقويم أسنان', 'ortho')">
-                        <div class="w-12 h-12 bg-red-50 text-brand-primary rounded-xl flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-grip-lines-vertical text-xl"></i>
+                    <div class="option-card rounded-xl flex items-center gap-3" onclick="handleMainChoice('تقويم أسنان', 'ortho')">
+                        <div class="icon-box bg-red-50 text-brand-primary rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-grip-lines-vertical text-lg"></i>
                         </div>
                         <div>
-                            <span class="font-bold block text-base text-brand-primary">تقويم الأسنان</span>
-                            <span class="text-[10px] text-gray-400">تعديل الاصطفاف، البروز، والزحام</span>
+                            <span class="font-bold block text-sm text-brand-primary">تقويم الأسنان</span>
+                            <span class="text-[9px] text-gray-400">تعديل الاصطفاف والبروز</span>
                         </div>
                     </div>
                     
-                    <div class="option-card p-4 rounded-2xl flex items-center gap-4" onclick="handleMainChoice('تجميل وابتسامة', 'cosmetic')">
-                        <div class="w-12 h-12 bg-amber-50 text-amber-700 rounded-xl flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                    <div class="option-card rounded-xl flex items-center gap-3" onclick="handleMainChoice('تجميل وابتسامة', 'cosmetic')">
+                        <div class="icon-box bg-amber-50 text-amber-700 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
                         </div>
                         <div>
-                            <span class="font-bold block text-base text-amber-700">تجميل وابتسامة هوليود</span>
-                            <span class="text-[10px] text-gray-400">فينير، تبييض، وتصميم الابتسامة</span>
+                            <span class="font-bold block text-sm text-amber-700">تجميل وابتسامة هوليود</span>
+                            <span class="text-[9px] text-gray-400">فينير، تبييض وتصميم الابتسامة</span>
                         </div>
                     </div>
 
-                    <div class="option-card p-4 rounded-2xl flex items-center gap-4" onclick="handleMainChoice('قسم الأطفال', 'kids')">
-                        <div class="w-12 h-12 bg-green-50 text-green-700 rounded-xl flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-child-reaching text-xl"></i>
+                    <div class="option-card rounded-xl flex items-center gap-3" onclick="handleMainChoice('قسم الأطفال', 'kids')">
+                        <div class="icon-box bg-green-50 text-green-700 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-child-reaching text-lg"></i>
                         </div>
                         <div>
-                            <span class="font-bold block text-base text-green-700">علاج أسنان الأطفال</span>
-                            <span class="text-[10px] text-gray-400">عناية خاصة مريحة للأطفال</span>
+                            <span class="font-bold block text-sm text-green-700">علاج أسنان الأطفال</span>
+                            <span class="text-[9px] text-gray-400">عناية خاصة مريحة للأطفال</span>
                         </div>
                     </div>
 
-                    <div class="option-card p-4 rounded-2xl flex items-center gap-4" onclick="handleMainChoice('أخرى', 'other')">
-                        <div class="w-12 h-12 bg-gray-50 text-gray-600 rounded-xl flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-comment-dots text-xl"></i>
+                    <div class="option-card rounded-xl flex items-center gap-3" onclick="handleMainChoice('أخرى', 'other')">
+                        <div class="icon-box bg-gray-50 text-gray-600 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-comment-dots text-lg"></i>
                         </div>
                         <div>
-                            <span class="font-bold block text-base text-gray-600">أخرى</span>
-                            <span class="text-[10px] text-gray-400">استفسارات عامة أو حالات خاصة</span>
+                            <span class="font-bold block text-sm text-gray-600">أخرى</span>
+                            <span class="text-[9px] text-gray-400">استفسارات عامة أو حالات خاصة</span>
                         </div>
                     </div>
                 </div>
@@ -158,80 +169,79 @@
 
             <!-- Step 2: Sub-Question -->
             <div id="step-2" class="step">
-                <h3 id="sub-question-title" class="text-lg font-black text-brand-secondary mb-6 text-center"></h3>
-                <div id="sub-options-container" class="grid grid-cols-1 gap-3"></div>
+                <h3 id="sub-question-title" class="text-md font-bold text-brand-secondary mb-4 text-center"></h3>
+                <div id="sub-options-container" class="grid grid-cols-1 gap-2"></div>
             </div>
 
             <!-- Step: Custom Text Input -->
             <div id="step-custom" class="step">
-                <h3 class="text-lg font-black text-brand-secondary mb-4 text-center">صف لنا ما تحتاج إليه بالتفصيل:</h3>
-                <textarea id="custom-text" rows="5" class="w-full p-4 rounded-2xl border-2 border-gray-100 bg-gray-50 font-bold text-sm text-brand-secondary transition-all" placeholder="اكتب مشكلتك أو استفسارك هنا..."></textarea>
-                <button onclick="handleCustomTextSubmit()" class="w-full mt-4 bg-brand-primary text-white font-bold py-3.5 rounded-2xl shadow-lg hover:brightness-110 active:scale-[0.98] transition-all">
+                <h3 class="text-md font-bold text-brand-secondary mb-3 text-center">صف لنا ما تحتاج إليه:</h3>
+                <textarea id="custom-text" rows="4" class="w-full p-3 rounded-xl border-2 border-gray-100 bg-gray-50 font-bold text-xs text-brand-secondary transition-all" placeholder="اكتب مشكلتك هنا..."></textarea>
+                <button onclick="handleCustomTextSubmit()" class="w-full mt-3 bg-brand-primary text-white font-bold py-3 rounded-xl shadow-md hover:brightness-110 active:scale-[0.98] transition-all text-sm">
                     تأكيد ومتابعة <i class="fa-solid fa-chevron-left mr-2"></i>
                 </button>
             </div>
 
             <!-- Step 3: Priority/Status -->
             <div id="step-3" class="step">
-                <h3 class="text-lg font-black text-brand-secondary mb-6 text-center">ما هو وضع الحالة الحالي؟</h3>
-                <div class="grid grid-cols-1 gap-3">
-                    <div class="option-card p-4 rounded-2xl flex items-center gap-4" onclick="selectStatus('حالة طارئة / ألم شديد')">
-                        <i class="fa-solid fa-bolt text-red-500"></i>
-                        <span class="font-bold text-sm">حالة طارئة / ألم يحتاج تدخل سريع</span>
+                <h3 class="text-md font-bold text-brand-secondary mb-4 text-center">ما هو وضع الحالة الحالي؟</h3>
+                <div class="grid grid-cols-1 gap-2">
+                    <div class="option-card rounded-xl flex items-center gap-3" onclick="selectStatus('حالة طارئة / ألم شديد')">
+                        <i class="fa-solid fa-bolt text-red-500 w-5"></i>
+                        <span class="font-bold text-xs">حالة طارئة / ألم شديد</span>
                     </div>
-                    <div class="option-card p-4 rounded-2xl flex items-center gap-4" onclick="selectStatus('مراجعة روتينية / استشارة')">
-                        <i class="fa-solid fa-stethoscope text-blue-500"></i>
-                        <span class="font-bold text-sm">مجرد استشارة وفحص أولي</span>
+                    <div class="option-card rounded-xl flex items-center gap-3" onclick="selectStatus('مراجعة روتينية / استشارة')">
+                        <i class="fa-solid fa-stethoscope text-blue-500 w-5"></i>
+                        <span class="font-bold text-xs">استشارة وفحص أولي</span>
                     </div>
-                    <div class="option-card p-4 rounded-2xl flex items-center gap-4" onclick="selectStatus('رغبة في التجميل')">
-                        <i class="fa-solid fa-face-smile-beam text-amber-500"></i>
-                        <span class="font-bold text-sm">رغبة في تحسين الشكل الجمالي</span>
+                    <div class="option-card rounded-xl flex items-center gap-3" onclick="selectStatus('رغبة في التجميل')">
+                        <i class="fa-solid fa-face-smile-beam text-amber-500 w-5"></i>
+                        <span class="font-bold text-xs">رغبة في تحسين المظهر</span>
                     </div>
                 </div>
             </div>
 
             <!-- Step 4: Health History -->
             <div id="step-4" class="step">
-                <h3 class="text-lg font-black text-brand-secondary mb-6 text-center">هل تعاني من أي أمراض مزمنة؟</h3>
-                <div class="grid grid-cols-1 gap-3">
-                    <div class="option-card p-4 rounded-2xl flex items-center gap-4" onclick="selectHealth('لا يوجد أمراض')">
-                        <i class="fa-solid fa-check-circle text-green-500"></i>
-                        <span class="font-bold text-sm">لا يوجد، الصحة ممتازة</span>
+                <h3 class="text-md font-bold text-brand-secondary mb-4 text-center">هل توجد أمراض مزمنة؟</h3>
+                <div class="grid grid-cols-1 gap-2">
+                    <div class="option-card rounded-xl flex items-center gap-3" onclick="selectHealth('لا يوجد أمراض')">
+                        <i class="fa-solid fa-check-circle text-green-500 w-5"></i>
+                        <span class="font-bold text-xs">لا يوجد، الصحة ممتازة</span>
                     </div>
-                    <div class="option-card p-4 rounded-2xl flex items-center gap-4" onclick="selectHealth('سكري أو ضغط')">
-                        <i class="fa-solid fa-notes-medical text-red-500"></i>
-                        <span class="font-bold text-sm">نعم (سكري / ضغط / مزمن)</span>
+                    <div class="option-card rounded-xl flex items-center gap-3" onclick="selectHealth('سكري أو ضغط')">
+                        <i class="fa-solid fa-notes-medical text-red-500 w-5"></i>
+                        <span class="font-bold text-xs">نعم (سكري / ضغط / مزمن)</span>
                     </div>
-                    <div class="option-card p-4 rounded-2xl flex items-center gap-4" onclick="selectHealth('مدخن')">
-                        <i class="fa-solid fa-smoking text-gray-500"></i>
-                        <span class="font-bold text-sm">أنا مدخن</span>
+                    <div class="option-card rounded-xl flex items-center gap-3" onclick="selectHealth('مدخن')">
+                        <i class="fa-solid fa-smoking text-gray-500 w-5"></i>
+                        <span class="font-bold text-xs">أنا مدخن</span>
                     </div>
                 </div>
             </div>
 
             <!-- Final Step -->
             <div id="step-final" class="step text-center">
-                <div class="w-20 h-20 bg-green-50 text-[#25D366] rounded-full flex items-center justify-center mx-auto mb-6 text-4xl shadow-md border-2 border-white">
+                <div class="w-16 h-16 bg-green-50 text-[#25D366] rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-sm border-2 border-white">
                     <i class="fa-brands fa-whatsapp"></i>
                 </div>
-                <h3 class="text-xl font-black mb-3 text-brand-secondary">بياناتك جاهزة للإرسال!</h3>
-                <p class="text-gray-500 text-sm mb-6 px-4">اضغط أدناه لإرسال التقرير لطبيبنا المختص وحجز الموعد.</p>
+                <h3 class="text-lg font-black mb-2 text-brand-secondary">بياناتك جاهزة!</h3>
                 
-                <div id="summary-box" class="bg-gray-50 p-5 rounded-2xl text-right text-xs mb-6 border border-dashed border-gray-300"></div>
+                <div id="summary-box" class="bg-gray-50 p-3 rounded-xl text-right text-[10px] mb-4 border border-dashed border-gray-300"></div>
                 
-                <button onclick="sendWhatsApp()" class="w-full bg-[#25D366] text-white font-black py-4 rounded-2xl shadow-xl flex items-center justify-center gap-3 text-lg hover:brightness-110 active:scale-95 transition-all">
-                    إرسال للعيادة عبر واتساب <i class="fa-solid fa-paper-plane"></i>
+                <button onclick="sendWhatsApp()" class="w-full bg-[#25D366] text-white font-black py-3.5 rounded-xl shadow-lg flex items-center justify-center gap-2 text-md hover:brightness-110 active:scale-95 transition-all">
+                    إرسال عبر واتساب <i class="fa-solid fa-paper-plane"></i>
                 </button>
             </div>
 
         </div>
 
         <!-- Progress Footer -->
-        <div id="nav-footer" class="hidden px-6 py-4 bg-gray-50 flex justify-between items-center border-t border-gray-100">
-            <button onclick="goBack()" class="text-gray-400 text-xs font-bold flex items-center gap-2 hover:text-brand-primary transition">
+        <div id="nav-footer" class="hidden px-4 py-2 bg-gray-50 flex justify-between items-center border-t border-gray-100">
+            <button onclick="goBack()" class="text-gray-400 text-[10px] font-bold flex items-center gap-1 hover:text-brand-primary transition">
                 <i class="fa-solid fa-arrow-right"></i> رجوع
             </button>
-            <div class="h-1.5 w-24 bg-gray-200 rounded-full overflow-hidden">
+            <div class="h-1 w-20 bg-gray-200 rounded-full overflow-hidden">
                 <div id="progress-bar" class="h-full bg-brand-primary" style="width: 0%"></div>
             </div>
         </div>
@@ -253,24 +263,24 @@
 
         const subQuestions = {
             ortho: {
-                title: "ما هي المشكلة الأساسية بالتقويم؟",
-                options: ["بروز في الأسنان الأمامية", "فراغات بين الأسنان", "زحام واعوجاج في الأسنان", "رغبة في التقويم الشفاف (Invisalign)", "أخرى"]
+                title: "ما هي مشكلة التقويم؟",
+                options: ["بروز أسنان أمامية", "فراغات بين الأسنان", "زحام واعوجاج", "تقويم شفاف (Invisalign)", "أخرى"]
             },
             implant: {
-                title: "كم عدد الأسنان التي تحتاج تعويض؟",
-                options: ["سن واحد مفقود", "عدة أسنان مفقودة", "أريد طقم أسنان كامل (فك كامل)", "فحص حالة الجذور المتبقية", "أخرى"]
+                title: "كم سن يحتاج تعويض؟",
+                options: ["سن واحد فقط", "عدة أسنان", "طقم كامل (فك كامل)", "فحص جذور متبقية", "أخرى"]
             },
             cosmetic: {
                 title: "ما هو التغيير المطلوب؟",
-                options: ["تبييض أسنان ليزر", "تركيبات الزيركون أو الإيماكس", "فينير (ابتسامة هوليود)", "علاج وتوريد اللثة", "أخرى"]
+                options: ["تبييض ليزر", "تركيبات زيركون", "فينير (هوليود)", "علاج لثة", "أخرى"]
             },
             kids: {
                 title: "ما هو عمر الطفل؟",
-                options: ["طفل عمره (3 - 6 سنوات)", "طفل عمره (7 - 12 سنة)", "فحص أول سن للطفل", "أخرى"]
+                options: ["عمره (3 - 6 سنوات)", "عمره (7 - 12 سنة)", "فحص أول سن", "أخرى"]
             },
             other: {
                 title: "توضيح إضافي",
-                options: ["أريد شرح مشكلتي بالتفصيل"]
+                options: ["شرح المشكلة بالتفصيل"]
             }
         };
 
@@ -290,11 +300,11 @@
             
             sub.options.forEach(opt => {
                 const div = document.createElement('div');
-                div.className = 'option-card p-4 rounded-2xl flex items-center gap-4';
-                div.innerHTML = `<div class="w-6 h-6 border-2 border-brand-primary/20 rounded-full flex items-center justify-center"><div class="w-2.5 h-2.5 bg-brand-primary rounded-full opacity-0 check-dot"></div></div><span class="font-bold text-sm">${opt}</span>`;
+                div.className = 'option-card rounded-xl flex items-center gap-3';
+                div.innerHTML = `<div class="w-4 h-4 border-2 border-brand-primary/20 rounded-full flex items-center justify-center"><div class="w-2 h-2 bg-brand-primary rounded-full opacity-0 check-dot"></div></div><span class="font-bold text-xs">${opt}</span>`;
                 div.onclick = () => {
                     currentState.subChoice = opt;
-                    if (opt === 'أخرى' || opt === 'أريد شرح مشكلتي بالتفصيل') {
+                    if (opt === 'أخرى' || opt === 'شرح المشكلة بالتفصيل') {
                         nextStep('custom');
                     } else {
                         nextStep(3);
@@ -367,15 +377,15 @@
 
         function showSummary() {
             const box = document.getElementById('summary-box');
-            let html = `<p class="mb-3 text-brand-primary font-black text-sm border-b pb-2">ملخص استشارتك:</p>`;
-            html += `<div class="grid grid-cols-1 gap-2 text-gray-600">`;
+            let html = `<p class="mb-2 text-brand-primary font-black text-xs border-b pb-1">ملخص الطلب:</p>`;
+            html += `<div class="grid grid-cols-1 gap-1 text-gray-600">`;
             html += `<p>🔘 <b>القسم:</b> ${currentState.mainChoice}</p>`;
             if(currentState.subChoice && currentState.subChoice !== 'أخرى') 
                 html += `<p>🔘 <b>التفصيل:</b> ${currentState.subChoice}</p>`;
             if(currentState.customText) 
-                html += `<p>🔘 <b>وصف العميل:</b> ${currentState.customText}</p>`;
+                html += `<p>🔘 <b>الوصف:</b> ${currentState.customText}</p>`;
             html += `<p>🔘 <b>الأولوية:</b> ${currentState.status}</p>`;
-            if(!currentState.isKid) html += `<p>🔘 <b>الصحة العامة:</b> ${currentState.health}</p>`;
+            if(!currentState.isKid) html += `<p>🔘 <b>الصحة:</b> ${currentState.health}</p>`;
             html += `</div>`;
             box.innerHTML = html;
         }
