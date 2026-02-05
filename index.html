@@ -20,7 +20,7 @@
                         brand: {
                             primary: '#800020',
                             secondary: '#1e293b',
-                            accent: '#fdf2f2',
+                            bgGray: '#E5E7EB', // درجة رمادي أغمق قليلاً ومريحة
                         }
                     }
                 }
@@ -29,15 +29,18 @@
     </script>
 
     <style>
-        body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; overflow-x: hidden; }
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background-color: #E5E7EB; /* اللون الرمادي الأغمق المطلوب */
+            overflow-x: hidden; 
+        }
         
-        /* تصغير حجم البطاقات لتقليل السكرول */
         .option-card {
             transition: all 0.2s ease-in-out;
             cursor: pointer;
             border: 1.5px solid #e2e8f0;
             background: white;
-            padding: 0.75rem !important; /* تقليل الحشو الداخلي */
+            padding: 0.75rem !important;
         }
         
         .option-card:hover {
@@ -52,9 +55,9 @@
         
         .logo-container {
             background-color: white;
-            padding: 0.5rem; /* تقليل الحشو */
+            padding: 0.5rem;
             border-radius: 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             display: inline-block;
         }
 
@@ -75,11 +78,22 @@
             box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.1);
         }
 
-        /* تحسين مظهر الأيقونات الصغيرة */
         .icon-box {
             width: 2.5rem !important;
             height: 2.5rem !important;
             flex-shrink: 0;
+        }
+        
+        /* تحسين مظهر شريط التمرير */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E5E7EB;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #800020;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -89,7 +103,7 @@
     <div class="text-center mb-4 w-full max-w-lg">
         <div class="logo-container mb-2">
             <img src="https://i.postimg.cc/Ty5nTNFd/logo-placeholder.jpg" 
-                 onerror="this.src='https://placehold.co/150x50/800020/ffffff?text=AL+HIFAZ'"
+                 onerror="this.src='https://placehold.co/150x50/eeeeee/800020?text=AL+HIFAZ'"
                  alt="شعار عيادات الحفاظ" 
                  class="h-10 md:h-12 object-contain mx-auto">
         </div>
@@ -99,14 +113,14 @@
             <h1 class="text-xl md:text-2xl font-black text-brand-secondary leading-tight mb-1">
                 استشارتك <span class="text-brand-primary">الذكية</span>
             </h1>
-            <p class="text-gray-500 text-[11px] leading-tight max-w-xs mx-auto">
-                خطوات بسيطة للحصول على خطة علاجية مخصصة.
+            <p class="text-gray-600 text-[11px] leading-tight max-w-xs mx-auto font-bold">
+                خطوات بسيطة للحصول على خطة علاجية مخصصة ومباشرة.
             </p>
         </div>
     </div>
 
     <!-- Quiz Container -->
-    <div class="max-w-md w-full bg-white rounded-[1.5rem] shadow-lg overflow-hidden border-t-4 border-brand-primary relative">
+    <div class="max-w-md w-full bg-white rounded-[1.5rem] shadow-2xl overflow-hidden border-t-4 border-brand-primary relative">
         
         <div class="p-4 md:p-6">
 
@@ -167,13 +181,11 @@
                 </div>
             </div>
 
-            <!-- Step 2: Sub-Question -->
             <div id="step-2" class="step">
                 <h3 id="sub-question-title" class="text-md font-bold text-brand-secondary mb-4 text-center"></h3>
                 <div id="sub-options-container" class="grid grid-cols-1 gap-2"></div>
             </div>
 
-            <!-- Step: Custom Text Input -->
             <div id="step-custom" class="step">
                 <h3 class="text-md font-bold text-brand-secondary mb-3 text-center">صف لنا ما تحتاج إليه:</h3>
                 <textarea id="custom-text" rows="4" class="w-full p-3 rounded-xl border-2 border-gray-100 bg-gray-50 font-bold text-xs text-brand-secondary transition-all" placeholder="اكتب مشكلتك هنا..."></textarea>
@@ -182,7 +194,6 @@
                 </button>
             </div>
 
-            <!-- Step 3: Priority/Status -->
             <div id="step-3" class="step">
                 <h3 class="text-md font-bold text-brand-secondary mb-4 text-center">ما هو وضع الحالة الحالي؟</h3>
                 <div class="grid grid-cols-1 gap-2">
@@ -201,7 +212,6 @@
                 </div>
             </div>
 
-            <!-- Step 4: Health History -->
             <div id="step-4" class="step">
                 <h3 class="text-md font-bold text-brand-secondary mb-4 text-center">هل توجد أمراض مزمنة؟</h3>
                 <div class="grid grid-cols-1 gap-2">
@@ -220,15 +230,12 @@
                 </div>
             </div>
 
-            <!-- Final Step -->
             <div id="step-final" class="step text-center">
                 <div class="w-16 h-16 bg-green-50 text-[#25D366] rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-sm border-2 border-white">
                     <i class="fa-brands fa-whatsapp"></i>
                 </div>
                 <h3 class="text-lg font-black mb-2 text-brand-secondary">بياناتك جاهزة!</h3>
-                
                 <div id="summary-box" class="bg-gray-50 p-3 rounded-xl text-right text-[10px] mb-4 border border-dashed border-gray-300"></div>
-                
                 <button onclick="sendWhatsApp()" class="w-full bg-[#25D366] text-white font-black py-3.5 rounded-xl shadow-lg flex items-center justify-center gap-2 text-md hover:brightness-110 active:scale-95 transition-all">
                     إرسال عبر واتساب <i class="fa-solid fa-paper-plane"></i>
                 </button>
@@ -237,12 +244,12 @@
         </div>
 
         <!-- Progress Footer -->
-        <div id="nav-footer" class="hidden px-4 py-2 bg-gray-50 flex justify-between items-center border-t border-gray-100">
+        <div id="nav-footer" class="hidden px-4 py-3 bg-gray-50 flex justify-between items-center border-t border-gray-100">
             <button onclick="goBack()" class="text-gray-400 text-[10px] font-bold flex items-center gap-1 hover:text-brand-primary transition">
                 <i class="fa-solid fa-arrow-right"></i> رجوع
             </button>
-            <div class="h-1 w-20 bg-gray-200 rounded-full overflow-hidden">
-                <div id="progress-bar" class="h-full bg-brand-primary" style="width: 0%"></div>
+            <div class="h-1.5 w-24 bg-gray-200 rounded-full overflow-hidden">
+                <div id="progress-bar" class="h-full bg-brand-primary transition-all duration-300" style="width: 0%"></div>
             </div>
         </div>
     </div>
@@ -287,53 +294,34 @@
         function handleMainChoice(text, key) {
             currentState.mainChoice = text;
             currentState.isKid = (key === 'kids');
-            
-            if (key === 'other') {
-                nextStep('custom');
-                return;
-            }
-
+            if (key === 'other') { nextStep('custom'); return; }
             const sub = subQuestions[key];
             document.getElementById('sub-question-title').innerText = sub.title;
             const container = document.getElementById('sub-options-container');
             container.innerHTML = '';
-            
             sub.options.forEach(opt => {
                 const div = document.createElement('div');
                 div.className = 'option-card rounded-xl flex items-center gap-3';
                 div.innerHTML = `<div class="w-4 h-4 border-2 border-brand-primary/20 rounded-full flex items-center justify-center"><div class="w-2 h-2 bg-brand-primary rounded-full opacity-0 check-dot"></div></div><span class="font-bold text-xs">${opt}</span>`;
                 div.onclick = () => {
                     currentState.subChoice = opt;
-                    if (opt === 'أخرى' || opt === 'شرح المشكلة بالتفصيل') {
-                        nextStep('custom');
-                    } else {
-                        nextStep(3);
-                    }
+                    if (opt === 'أخرى' || opt === 'شرح المشكلة بالتفصيل') { nextStep('custom'); } else { nextStep(3); }
                 };
                 container.appendChild(div);
             });
-
             nextStep(2);
         }
 
         function handleCustomTextSubmit() {
             const text = document.getElementById('custom-text').value.trim();
-            if (text === "") {
-                document.getElementById('custom-text').classList.add('border-red-400');
-                return;
-            }
+            if (text === "") { document.getElementById('custom-text').classList.add('border-red-400'); return; }
             currentState.customText = text;
             nextStep(3);
         }
 
         function selectStatus(val) {
             currentState.status = val;
-            if(currentState.isKid) {
-                currentState.health = "صحة طفل طبيعية";
-                nextStep(5); 
-            } else {
-                nextStep(4);
-            }
+            if(currentState.isKid) { currentState.health = "صحة طفل طبيعية"; nextStep(5); } else { nextStep(4); }
         }
 
         function selectHealth(val) {
@@ -345,15 +333,11 @@
             document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
             const target = (s === 5) ? 'step-final' : (s === 'custom' ? 'step-custom' : 'step-' + s);
             document.getElementById(target).classList.add('active');
-            
             if(s !== 1 && s !== 5) {
                 document.getElementById('nav-footer').classList.remove('hidden');
                 let progress = typeof s === 'number' ? s : 2.5;
                 document.getElementById('progress-bar').style.width = ((progress/TOTAL_STEPS)*100) + '%';
-            } else {
-                document.getElementById('nav-footer').classList.add('hidden');
-            }
-
+            } else { document.getElementById('nav-footer').classList.add('hidden'); }
             if(s === 5) showSummary();
             historySteps.push(s);
         }
@@ -365,10 +349,8 @@
                 document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
                 const target = (prev === 5) ? 'step-final' : (prev === 'custom' ? 'step-custom' : 'step-' + prev);
                 document.getElementById(target).classList.add('active');
-                
-                if(prev === 1) {
-                    document.getElementById('nav-footer').classList.add('hidden');
-                } else {
+                if(prev === 1) { document.getElementById('nav-footer').classList.add('hidden'); } 
+                else {
                     let progress = typeof prev === 'number' ? prev : 2.5;
                     document.getElementById('progress-bar').style.width = ((progress/TOTAL_STEPS)*100) + '%';
                 }
@@ -380,10 +362,8 @@
             let html = `<p class="mb-2 text-brand-primary font-black text-xs border-b pb-1">ملخص الطلب:</p>`;
             html += `<div class="grid grid-cols-1 gap-1 text-gray-600">`;
             html += `<p>🔘 <b>القسم:</b> ${currentState.mainChoice}</p>`;
-            if(currentState.subChoice && currentState.subChoice !== 'أخرى') 
-                html += `<p>🔘 <b>التفصيل:</b> ${currentState.subChoice}</p>`;
-            if(currentState.customText) 
-                html += `<p>🔘 <b>الوصف:</b> ${currentState.customText}</p>`;
+            if(currentState.subChoice && currentState.subChoice !== 'أخرى') html += `<p>🔘 <b>التفصيل:</b> ${currentState.subChoice}</p>`;
+            if(currentState.customText) html += `<p>🔘 <b>الوصف:</b> ${currentState.customText}</p>`;
             html += `<p>🔘 <b>الأولوية:</b> ${currentState.status}</p>`;
             if(!currentState.isKid) html += `<p>🔘 <b>الصحة:</b> ${currentState.health}</p>`;
             html += `</div>`;
@@ -398,7 +378,6 @@
             msg += `⚡ *الأولوية:* ${currentState.status}%0a`;
             msg += `🩺 *الحالة الصحية:* ${currentState.health}%0a%0a`;
             msg += `يرجى التواصل معي في أقرب وقت.`;
-            
             window.open(`https://wa.me/${CLINIC_PHONE}?text=${msg}`, '_blank');
         }
     </script>
